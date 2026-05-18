@@ -1,0 +1,17 @@
+{
+  "environment": "docker-compose anvil x 2",
+  "rpcA": "http://chain-a:8545",
+  "rpcB": "http://chain-b:8545",
+  "chainAId": 31337,
+  "chainBId": 31338,
+  "relayDelaySeconds": 1,
+  "baselinePendingAllowed": "6/6",
+  "proposalPendingRejected": "6/6",
+  "baselineDestinationFinalizedOperations": "1/1",
+  "proposalDestinationFinalizedOperations": "1/1",
+  "proposalReplayRejected": "1/1",
+  "sourceBaseline": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "destinationBaseline": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "sourceProposal": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "destinationProposal": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+}

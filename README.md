@@ -1,5 +1,7 @@
 # FIT2026 Cross-Chain NFT Operation Guards
 
+[![experiments](https://github.com/black-leg-nameko/fit2026-cross-chain-nft-guards/actions/workflows/experiments.yml/badge.svg)](https://github.com/black-leg-nameko/fit2026-cross-chain-nft-guards/actions/workflows/experiments.yml)
+
 This repository contains the proof-of-concept implementation for the FIT2026
 paper "Defining and Preventing Hazardous Operations under Ownership
 Inconsistency in Cross-chain NFTs".
@@ -7,19 +9,25 @@ Inconsistency in Cross-chain NFTs".
 ## Main Result
 
 The primary experiment is a real two-chain local EVM execution with Docker
-Compose and Anvil. During a simulated relay delay after `bridgeOut` on chain A,
-the baseline permits **6/6** hazardous source-chain operations, while the
-proposal rejects **6/6**. Destination finalization is then executed on chain B,
-normal destination transfer succeeds, and replay finalization is rejected by the
-proposal.
+Compose and Anvil. Across relay delays of **0, 1, 3, and 10 seconds** after
+`bridgeOut` on chain A, the baseline permits **6/6** hazardous source-chain
+operations, while the proposal rejects **6/6**. Destination finalization is then
+executed on chain B, normal destination transfer succeeds, and replay
+finalization is rejected by the proposal.
 
 Evidence levels:
 
 - `scripts/run_multichain_anvil.sh` launches two Anvil chains, deploys source
   and destination contracts, executes the asynchronous relay-window experiment,
   and writes transaction-level results.
+- `scripts/run_delay_sweep.sh` repeats the two-chain experiment across relay
+  delays and writes aggregate CSV/Markdown summaries for the paper evidence.
 - `test/ScenarioMatrix.t.sol` checks the Solidity contracts at EVM level,
   including both `PENDING_OUT` and `PENDING_IN` guards and replay rejection.
+- `test/PendingGuardInvariant.t.sol` adds stateful fuzz tests over 64 seeds and
+  32-step operation sequences, checking that no pending hazardous operation
+  succeeds and that per-owner pending counters stay synchronized with token
+  states.
 - `scripts/run_experiments.js` generates the publication matrix and figures
   from an executable model covering 12 pending-state cases.
 - `figures/state_access_overhead.svg` is a storage-access model, while
@@ -100,23 +108,39 @@ This launches two local EVM chains, deploys source/destination NFTs, waits
 during a simulated relay delay, attempts hazardous source-chain operations, and
 then finalizes the transfer on the destination chain.
 
-Latest two-chain result:
+Run the relay-delay sweep:
 
-| Measurement | Result |
-| --- | --- |
-| Baseline pending hazardous operations on chain A | 6/6 allowed |
-| Proposal pending hazardous operations on chain A | 6/6 rejected |
-| Baseline destination transfer after chain B finalization | 1/1 allowed |
-| Proposal destination transfer after chain B finalization | 1/1 allowed |
-| Proposal replay finalization on chain B | 1/1 rejected |
+```bash
+sh scripts/run_delay_sweep.sh
+```
+
+Use `DELAYS` to change the sweep points:
+
+```bash
+DELAYS="0 2 5" sh scripts/run_delay_sweep.sh
+```
+
+Latest two-chain delay sweep:
+
+| Relay delay (s) | Baseline pending allowed | Proposal pending rejected | Baseline destination finalized | Proposal destination finalized | Proposal replay rejected |
+| ---: | --- | --- | --- | --- | --- |
+| 0 | 6/6 | 6/6 | 1/1 | 1/1 | 1/1 |
+| 1 | 6/6 | 6/6 | 1/1 | 1/1 | 1/1 |
+| 3 | 6/6 | 6/6 | 1/1 | 1/1 | 1/1 |
+| 10 | 6/6 | 6/6 | 1/1 | 1/1 | 1/1 |
 
 Generated outputs:
 
 - `reports/experiment_report.md`
+- `reports/delay_sweep_report.md`
 - `reports/multichain_experiment_report.md`
+- `reports/multichain_delay_*s/multichain_experiment_report.md`
 - `reports/foundry_gas_report.txt`
+- `results/delay_sweep_summary.csv`
 - `results/multichain/summary.json`
 - `results/multichain/operation_results.csv`
+- `results/multichain_delay_*s/summary.json`
+- `results/multichain_delay_*s/operation_results.csv`
 - `results/operation_matrix.json`
 - `results/experiment_summary.json`
 - `results/replay_report.json`
@@ -144,6 +168,11 @@ forge test --gas-report
 ```bash
 docker compose run --rm foundry
 ```
+
+The current Foundry suite contains 10 tests: five deterministic scenario tests
+and five fuzz/stateful tests. The fuzz checks cover pending-out rejection,
+pending-in rejection, post-finalization availability, per-owner operator
+approval scoping, and random 32-step operation sequences.
 
 ## Scenario Check
 

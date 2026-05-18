@@ -1,0 +1,35 @@
+name: experiments
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  model-and-foundry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: Run executable model
+        run: node scripts/run_experiments.js
+      - name: Run Foundry tests
+        run: forge test -vvv --gas-report
+
+  two-chain-delay-sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run two-chain Anvil delay sweep
+        run: sh scripts/run_delay_sweep.sh
+      - name: Upload experiment artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: two-chain-delay-sweep
+          path: |
+            reports/delay_sweep_report.md
+            reports/multichain_delay_*s/
+            results/delay_sweep_summary.csv
+            results/multichain_delay_*s/

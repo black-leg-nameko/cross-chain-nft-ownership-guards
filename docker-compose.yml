@@ -39,5 +39,7 @@ services:
       RPC_B: "http://chain-b:8545"
       CHAIN_A_ID: "31337"
       CHAIN_B_ID: "31338"
-      RELAY_DELAY_SECONDS: "3"
+      RELAY_DELAY_SECONDS: "${RELAY_DELAY_SECONDS:-3}"
+      RESULTS_DIR: "${RESULTS_DIR:-results/multichain}"
+      REPORTS_DIR: "${REPORTS_DIR:-reports}"
     command: ["scripts/run_multichain_anvil.sh"]
