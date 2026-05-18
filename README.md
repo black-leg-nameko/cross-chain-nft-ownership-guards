@@ -6,15 +6,24 @@ Inconsistency in Cross-chain NFTs".
 
 ## Main Result
 
-The baseline permits **12/12** hazardous operations during pending ownership
-states. The proposal rejects **12/12** pending hazardous operations, while
-restoring **6/6** normal operations after finalization.
+The primary experiment is a real two-chain local EVM execution with Docker
+Compose and Anvil. During a simulated relay delay after `bridgeOut` on chain A,
+the baseline permits **6/6** hazardous source-chain operations, while the
+proposal rejects **6/6**. Destination finalization is then executed on chain B,
+normal destination transfer succeeds, and replay finalization is rejected by the
+proposal.
 
 Evidence levels:
 
-- `scripts/run_experiments.js` generates the matrix and figures from an executable model matching the intended Solidity behavior.
-- `test/ScenarioMatrix.t.sol` checks the Solidity contracts at EVM level when run with Foundry.
-- `figures/state_access_overhead.svg` is a storage-access model, not a measured gas benchmark.
+- `scripts/run_multichain_anvil.sh` launches two Anvil chains, deploys source
+  and destination contracts, executes the asynchronous relay-window experiment,
+  and writes transaction-level results.
+- `test/ScenarioMatrix.t.sol` checks the Solidity contracts at EVM level,
+  including both `PENDING_OUT` and `PENDING_IN` guards and replay rejection.
+- `scripts/run_experiments.js` generates the publication matrix and figures
+  from an executable model covering 12 pending-state cases.
+- `figures/state_access_overhead.svg` is a storage-access model, while
+  `reports/foundry_gas_report.txt` records the measured Foundry gas report.
 
 ![Hazardous operation matrix](figures/operation_matrix.svg)
 
@@ -79,9 +88,33 @@ Run the Solidity scenario tests and gas report in Docker:
 docker compose run --rm foundry
 ```
 
+Run the actual two-chain Anvil experiment:
+
+```bash
+docker compose up --abort-on-container-exit --exit-code-from multichain multichain
+```
+
+This launches two local EVM chains, deploys source/destination NFTs, waits
+during a simulated relay delay, attempts hazardous source-chain operations, and
+then finalizes the transfer on the destination chain.
+
+Latest two-chain result:
+
+| Measurement | Result |
+| --- | --- |
+| Baseline pending hazardous operations on chain A | 6/6 allowed |
+| Proposal pending hazardous operations on chain A | 6/6 rejected |
+| Baseline destination transfer after chain B finalization | 1/1 allowed |
+| Proposal destination transfer after chain B finalization | 1/1 allowed |
+| Proposal replay finalization on chain B | 1/1 rejected |
+
 Generated outputs:
 
 - `reports/experiment_report.md`
+- `reports/multichain_experiment_report.md`
+- `reports/foundry_gas_report.txt`
+- `results/multichain/summary.json`
+- `results/multichain/operation_results.csv`
 - `results/operation_matrix.json`
 - `results/experiment_summary.json`
 - `results/replay_report.json`
@@ -132,5 +165,6 @@ operation succeeds in the baseline and is rejected by the proposal.
 | transfer after finalize | succeeds | succeeds |
 | replay finalize | accepted | rejected |
 
-This PoC intentionally abstracts bridge signature verification and focuses on
-ownership-state semantics and operation guards.
+This PoC intentionally abstracts bridge signature verification and public-chain
+validator behavior. It focuses on ownership-state semantics and operation guards
+under a reproducible two-chain local EVM threat model.

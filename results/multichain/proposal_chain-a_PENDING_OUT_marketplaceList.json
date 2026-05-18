@@ -1,0 +1,1 @@
+Error: Failed to estimate gas: server returned an error response: error code 3: execution reverted: custom error 0x7b71c2de, data: "0x7b71c2de": ListingRejectedByTokenState
