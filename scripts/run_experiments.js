@@ -520,6 +520,8 @@ function writeReport(summary, matrix, replay, overhead) {
   lines.push("");
   lines.push(summary.headline);
   lines.push("");
+  lines.push("Evidence levels: the matrix and figures are generated from an executable model matching the intended Solidity behavior; `test/ScenarioMatrix.t.sol` provides EVM-level checks when run with Foundry; the overhead figure is a storage-access model, not a measured gas benchmark.");
+  lines.push("");
   lines.push("| Metric | Result |");
   lines.push("| --- | ---: |");
   lines.push(`| Baseline pending hazardous operations allowed | ${summary.baselinePendingAllowed}/${summary.baselinePendingAllowedTotal} |`);
@@ -550,7 +552,7 @@ function writeReport(summary, matrix, replay, overhead) {
   lines.push("");
   lines.push("## State-Access Overhead Model");
   lines.push("");
-  lines.push("This is a storage-access model, not a chain-specific gas benchmark. It is designed to make the implementation cost transparent before running Foundry gas reports.");
+  lines.push("This is a storage-access model, not a chain-specific gas benchmark. The executable Solidity tests are in `test/ScenarioMatrix.t.sol` and can be run with `forge test --gas-report` or `docker compose run --rm foundry`.");
   lines.push("");
   lines.push("| Operation | Extra reads | Extra writes | Explanation |");
   lines.push("| --- | ---: | ---: | --- |");

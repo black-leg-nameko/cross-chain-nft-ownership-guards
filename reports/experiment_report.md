@@ -1,10 +1,12 @@
 # FIT2026 Experiment Report
 
-Generated at: 2026-05-18T01:34:51.903Z
+Generated at: 2026-05-18T01:42:30.484Z
 
 ## Headline Result
 
 baseline permits 12/12 pending hazardous operations; proposal rejects 12/12 and restores 6/6 after finalization.
+
+Evidence levels: the matrix and figures are generated from an executable model matching the intended Solidity behavior; `test/ScenarioMatrix.t.sol` provides EVM-level checks when run with Foundry; the overhead figure is a storage-access model, not a measured gas benchmark.
 
 | Metric | Result |
 | --- | ---: |
@@ -81,7 +83,7 @@ baseline permits 12/12 pending hazardous operations; proposal rejects 12/12 and 
 
 ## State-Access Overhead Model
 
-This is a storage-access model, not a chain-specific gas benchmark. It is designed to make the implementation cost transparent before running Foundry gas reports.
+This is a storage-access model, not a chain-specific gas benchmark. The executable Solidity tests are in `test/ScenarioMatrix.t.sol` and can be run with `forge test --gas-report` or `docker compose run --rm foundry`.
 
 | Operation | Extra reads | Extra writes | Explanation |
 | --- | ---: | ---: | --- |

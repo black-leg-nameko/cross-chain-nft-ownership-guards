@@ -10,6 +10,12 @@ The baseline permits **12/12** hazardous operations during pending ownership
 states. The proposal rejects **12/12** pending hazardous operations, while
 restoring **6/6** normal operations after finalization.
 
+Evidence levels:
+
+- `scripts/run_experiments.js` generates the matrix and figures from an executable model matching the intended Solidity behavior.
+- `test/ScenarioMatrix.t.sol` checks the Solidity contracts at EVM level when run with Foundry.
+- `figures/state_access_overhead.svg` is a storage-access model, not a measured gas benchmark.
+
 ![Hazardous operation matrix](figures/operation_matrix.svg)
 
 The experiment is designed to show three properties:
@@ -67,6 +73,12 @@ With Docker Desktop and WSL integration enabled:
 docker compose run --rm experiments
 ```
 
+Run the Solidity scenario tests and gas report in Docker:
+
+```bash
+docker compose run --rm foundry
+```
+
 Generated outputs:
 
 - `reports/experiment_report.md`
@@ -80,18 +92,22 @@ Generated outputs:
 
 ## Solidity Checks
 
-The contracts have no external Solidity dependencies and can be compiled with a
-plain `solc`:
+The Node experiment generates the paper figures from a small executable model.
+The Solidity contracts themselves are checked separately. At minimum, parse the
+contracts with plain `solc`:
 
 ```bash
 solc --stop-after parsing src/BaselineNFT.sol src/SafeCrossChainNFT.sol src/MockMarketplace.sol test/ScenarioMatrix.t.sol
 ```
 
-If Foundry is available, the project layout is Foundry-compatible and includes
-scenario tests:
+For executable EVM-level tests, use Foundry locally or through Docker:
 
 ```bash
 forge test --gas-report
+```
+
+```bash
+docker compose run --rm foundry
 ```
 
 ## Scenario Check

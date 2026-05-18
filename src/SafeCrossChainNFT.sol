@@ -52,6 +52,7 @@ contract SafeCrossChainNFT is MinimalERC721 {
         if (finalizedMessages[messageId]) revert MessageAlreadyFinalized(messageId);
         if (bridgeState[tokenId] != TokenBridgeState.ACTIVE) revert TokenAlreadyPending(tokenId);
         bridgeState[tokenId] = TokenBridgeState.PENDING_IN;
+        pendingTokenCount[ownerOf(tokenId)] += 1;
         emit PendingIn(tokenId, srcChainId, messageId);
     }
 

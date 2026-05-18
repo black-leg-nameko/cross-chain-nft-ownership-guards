@@ -6,3 +6,9 @@ services:
       - ./figures:/app/figures
       - ./reports:/app/reports
     command: node scripts/run_experiments.js
+  foundry:
+    image: ghcr.io/foundry-rs/foundry:latest
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: test --gas-report
