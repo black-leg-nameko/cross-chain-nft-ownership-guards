@@ -4,6 +4,22 @@ This repository contains the proof-of-concept implementation for the FIT2026
 paper "Defining and Preventing Hazardous Operations under Ownership
 Inconsistency in Cross-chain NFTs".
 
+## Main Result
+
+The baseline permits **12/12** hazardous operations during pending ownership
+states. The proposal rejects **12/12** pending hazardous operations, while
+restoring **6/6** normal operations after finalization.
+
+![Hazardous operation matrix](figures/operation_matrix.svg)
+
+The experiment is designed to show three properties:
+
+- **Safety:** pending-state transfer, approval, and listing operations are rejected.
+- **Availability:** the same operations are allowed in `ACTIVE` and after finalization.
+- **Lightweight guard:** normal hazardous operations add one state read; writes occur only on bridge state transitions.
+
+![State-access overhead](figures/state_access_overhead.svg)
+
 The PoC compares:
 
 - `BaselineNFT`: a naive cross-chain NFT that emits bridge events but keeps
@@ -17,25 +33,65 @@ The PoC compares:
 
 ## Hazardous Operations
 
-The implementation guards the three operations used in the paper:
+The implementation evaluates six concrete entry points across the three
+operation classes used in the paper:
 
 - transfer: `transferFrom`, `safeTransferFrom`
 - approval: `approve`, `setApprovalForAll`
-- listing: marketplace listing through `canList(tokenId)`
+- listing: direct `list(tokenId)` and marketplace listing through `canList(tokenId)`
 
-## Build
+States:
+
+- `ACTIVE`
+- `PENDING_OUT`
+- `PENDING_IN`
+- post-finalization `ACTIVE`
+
+## Reproduce Experiments
+
+Dependency-free local run:
+
+```bash
+node scripts/run_experiments.js
+```
+
+Full local check:
+
+```bash
+sh scripts/run_all.sh
+```
+
+With Docker Desktop and WSL integration enabled:
+
+```bash
+docker compose run --rm experiments
+```
+
+Generated outputs:
+
+- `reports/experiment_report.md`
+- `results/operation_matrix.json`
+- `results/experiment_summary.json`
+- `results/replay_report.json`
+- `results/state_access_overhead.json`
+- `figures/operation_matrix.svg`
+- `figures/pending_window_timeline.svg`
+- `figures/state_access_overhead.svg`
+
+## Solidity Checks
 
 The contracts have no external Solidity dependencies and can be compiled with a
 plain `solc`:
 
 ```bash
-solc --base-path . --include-path . --bin --abi src/*.sol -o out --overwrite
+solc --stop-after parsing src/BaselineNFT.sol src/SafeCrossChainNFT.sol src/MockMarketplace.sol test/ScenarioMatrix.t.sol
 ```
 
-If Foundry is available, the project layout is also Foundry-compatible:
+If Foundry is available, the project layout is Foundry-compatible and includes
+scenario tests:
 
 ```bash
-forge build
+forge test --gas-report
 ```
 
 ## Scenario Check

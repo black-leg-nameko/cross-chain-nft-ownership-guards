@@ -1,0 +1,51 @@
+[
+  {
+    "operation": "transferFrom",
+    "baselineReads": 1,
+    "proposalExtraReads": 1,
+    "proposalExtraWrites": 0,
+    "explanation": "bridgeState[tokenId] read before owner/approval checks"
+  },
+  {
+    "operation": "safeTransferFrom",
+    "baselineReads": 1,
+    "proposalExtraReads": 1,
+    "proposalExtraWrites": 0,
+    "explanation": "same guard as transferFrom"
+  },
+  {
+    "operation": "approve",
+    "baselineReads": 1,
+    "proposalExtraReads": 1,
+    "proposalExtraWrites": 0,
+    "explanation": "bridgeState[tokenId] read before approval"
+  },
+  {
+    "operation": "setApprovalForAll",
+    "baselineReads": 0,
+    "proposalExtraReads": 1,
+    "proposalExtraWrites": 0,
+    "explanation": "pendingTokenCount[msg.sender] read"
+  },
+  {
+    "operation": "list",
+    "baselineReads": 1,
+    "proposalExtraReads": 1,
+    "proposalExtraWrites": 0,
+    "explanation": "bridgeState[tokenId] read before listing"
+  },
+  {
+    "operation": "bridgeOut",
+    "baselineReads": 1,
+    "proposalExtraReads": 1,
+    "proposalExtraWrites": 2,
+    "explanation": "bridgeState write and pendingTokenCount write"
+  },
+  {
+    "operation": "finalizeIn",
+    "baselineReads": 0,
+    "proposalExtraReads": 1,
+    "proposalExtraWrites": 3,
+    "explanation": "message replay guard, state restore, pending count update"
+  }
+]

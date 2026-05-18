@@ -1,0 +1,12 @@
+{
+  "name": "fit2026-cross-chain-nft-guards",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FIT2026 PoC experiments for hazardous operation guards under cross-chain NFT ownership inconsistency.",
+  "scripts": {
+    "experiments": "node scripts/run_experiments.js",
+    "scenarios": "node scripts/run_scenarios.js",
+    "check": "sh scripts/run_all.sh"
+  },
+  "license": "MIT"
+}

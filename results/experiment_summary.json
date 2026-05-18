@@ -1,0 +1,29 @@
+{
+  "generatedAt": "2026-05-18T01:34:51.903Z",
+  "operations": [
+    "transferFrom",
+    "safeTransferFrom",
+    "approve",
+    "setApprovalForAll",
+    "directList",
+    "marketplaceList"
+  ],
+  "states": [
+    "ACTIVE",
+    "PENDING_OUT",
+    "PENDING_IN",
+    "FINALIZED_ACTIVE"
+  ],
+  "pendingHazardousAttemptsPerSystem": 12,
+  "baselinePendingAllowed": 12,
+  "baselinePendingAllowedTotal": 12,
+  "proposalPendingRejected": 12,
+  "proposalPendingRejectedTotal": 12,
+  "proposalActiveAllowed": 6,
+  "proposalActiveAllowedTotal": 6,
+  "proposalFinalizedAllowed": 6,
+  "proposalFinalizedAllowedTotal": 6,
+  "baselineReplayAccepted": true,
+  "proposalReplayRejected": true,
+  "headline": "baseline permits 12/12 pending hazardous operations; proposal rejects 12/12 and restores 6/6 after finalization."
+}

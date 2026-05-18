@@ -1,0 +1,9 @@
+{
+  "baseline": {
+    "ok": true
+  },
+  "proposal": {
+    "ok": false,
+    "error": "MessageAlreadyFinalized"
+  }
+}

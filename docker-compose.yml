@@ -1,0 +1,8 @@
+services:
+  experiments:
+    build: .
+    volumes:
+      - ./results:/app/results
+      - ./figures:/app/figures
+      - ./reports:/app/reports
+    command: node scripts/run_experiments.js

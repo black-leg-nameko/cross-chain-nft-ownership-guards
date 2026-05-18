@@ -1,0 +1,482 @@
+[
+  {
+    "system": "baseline",
+    "state": "ACTIVE",
+    "operation": "transferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "ACTIVE",
+    "operation": "safeTransferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "ACTIVE",
+    "operation": "approve",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "ACTIVE",
+    "operation": "setApprovalForAll",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "ACTIVE",
+    "operation": "directList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "ACTIVE",
+    "operation": "marketplaceList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_OUT",
+    "operation": "transferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_OUT",
+    "operation": "safeTransferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_OUT",
+    "operation": "approve",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_OUT",
+    "operation": "setApprovalForAll",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_OUT",
+    "operation": "directList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_OUT",
+    "operation": "marketplaceList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_IN",
+    "operation": "transferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_IN",
+    "operation": "safeTransferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_IN",
+    "operation": "approve",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_IN",
+    "operation": "setApprovalForAll",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_IN",
+    "operation": "directList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "PENDING_IN",
+    "operation": "marketplaceList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": true
+  },
+  {
+    "system": "baseline",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "transferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "safeTransferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "approve",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "setApprovalForAll",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "directList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "baseline",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "marketplaceList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "ACTIVE",
+    "operation": "transferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "ACTIVE",
+    "operation": "safeTransferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "ACTIVE",
+    "operation": "approve",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "ACTIVE",
+    "operation": "setApprovalForAll",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "ACTIVE",
+    "operation": "directList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "ACTIVE",
+    "operation": "marketplaceList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_OUT",
+    "operation": "transferFrom",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_OUT",
+    "operation": "safeTransferFrom",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_OUT",
+    "operation": "approve",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_OUT",
+    "operation": "setApprovalForAll",
+    "ok": false,
+    "error": "OperatorApprovalWhileOwnerHasPendingTokens",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_OUT",
+    "operation": "directList",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_OUT",
+    "operation": "marketplaceList",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_IN",
+    "operation": "transferFrom",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_IN",
+    "operation": "safeTransferFrom",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_IN",
+    "operation": "approve",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_IN",
+    "operation": "setApprovalForAll",
+    "ok": false,
+    "error": "OperatorApprovalWhileOwnerHasPendingTokens",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_IN",
+    "operation": "directList",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "PENDING_IN",
+    "operation": "marketplaceList",
+    "ok": false,
+    "error": "HazardousOperationWhilePending",
+    "expectedSafeOutcome": "reject",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "transferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "safeTransferFrom",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "approve",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "setApprovalForAll",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "directList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  },
+  {
+    "system": "proposal",
+    "state": "FINALIZED_ACTIVE",
+    "operation": "marketplaceList",
+    "ok": true,
+    "error": null,
+    "expectedSafeOutcome": "allow",
+    "safetyCorrect": true,
+    "riskExposure": false
+  }
+]
