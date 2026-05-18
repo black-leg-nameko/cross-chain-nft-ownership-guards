@@ -25,6 +25,8 @@ Evidence levels:
 - `figures/state_access_overhead.svg` is a storage-access model, while
   `reports/foundry_gas_report.txt` records the measured Foundry gas report.
 
+![Pending window timeline](figures/pending_window_timeline.svg)
+
 ![Hazardous operation matrix](figures/operation_matrix.svg)
 
 The experiment is designed to show three properties:

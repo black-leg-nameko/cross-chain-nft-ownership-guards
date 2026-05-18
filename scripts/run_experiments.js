@@ -374,12 +374,22 @@ function escapeXml(text) {
 
 function matrixCellColor(row) {
   if (row.state === ACTIVE || row.state === FINALIZED) {
-    return row.ok ? "#2e7d32" : "#b71c1c";
+    return row.ok ? "#e7ece6" : "#ead9cf";
   }
   if (row.system === "baseline") {
-    return row.ok ? "#c62828" : "#2e7d32";
+    return row.ok ? "#ead9cf" : "#e7ece6";
   }
-  return row.ok ? "#c62828" : "#2e7d32";
+  return row.ok ? "#ead9cf" : "#e7ece6";
+}
+
+function matrixCellStroke(row) {
+  if (row.state === ACTIVE || row.state === FINALIZED) {
+    return row.ok ? "#6f7f69" : "#8a6258";
+  }
+  if (row.system === "baseline") {
+    return row.ok ? "#8a6258" : "#6f7f69";
+  }
+  return row.ok ? "#8a6258" : "#6f7f69";
 }
 
 function matrixCellLabel(row) {
@@ -395,7 +405,7 @@ function matrixCellLabel(row) {
 function writeOperationMatrixSvg(matrix) {
   const cellW = 116;
   const cellH = 34;
-  const left = 150;
+  const left = 210;
   const top = 66;
   const panelGap = 44;
   const panelH = operations.length * cellH + 38;
@@ -405,37 +415,38 @@ function writeOperationMatrixSvg(matrix) {
   const lines = [];
 
   lines.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`);
-  lines.push(`<rect width="100%" height="100%" fill="#ffffff"/>`);
-  lines.push(`<text x="24" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#111">Hazardous NFT Operation Matrix</text>`);
-  lines.push(`<text x="24" y="50" font-family="Arial, sans-serif" font-size="12" fill="#444">Red indicates a hazardous pending operation that remains executable; green indicates the intended safety outcome.</text>`);
+  lines.push(`<rect width="100%" height="100%" fill="#fbfaf8"/>`);
+  lines.push(`<text x="24" y="28" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#20242a">Hazardous NFT Operation Matrix</text>`);
+  lines.push(`<text x="24" y="50" font-family="Arial, sans-serif" font-size="12" fill="#5d6470">Pending cells distinguish executable hazards from blocked operations.</text>`);
 
   for (let p = 0; p < panels.length; p += 1) {
     const system = panels[p];
     const y0 = top + p * (panelH + panelGap);
-    lines.push(`<text x="24" y="${y0 + 22}" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111">${system === "baseline" ? "Baseline: no pending-state guard" : "Proposal: ownership-state guard"}</text>`);
+    lines.push(`<text x="24" y="${y0 + 22}" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#20242a">${system === "baseline" ? "Baseline" : "Proposal"}</text>`);
 
     for (let c = 0; c < states.length; c += 1) {
       const x = left + c * cellW;
-      lines.push(`<text x="${x + cellW / 2}" y="${y0 + 22}" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#222">${states[c].label}</text>`);
+      lines.push(`<text x="${x + cellW / 2}" y="${y0 + 22}" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#2c3138">${states[c].label}</text>`);
     }
 
     for (let r = 0; r < operations.length; r += 1) {
       const y = y0 + 38 + r * cellH;
-      lines.push(`<text x="24" y="${y + 22}" font-family="Arial, sans-serif" font-size="11" fill="#222">${escapeXml(operations[r].label)}</text>`);
+      lines.push(`<text x="24" y="${y + 22}" font-family="Arial, sans-serif" font-size="11" fill="#2c3138">${escapeXml(operations[r].label)}</text>`);
       for (let c = 0; c < states.length; c += 1) {
         const state = states[c].id;
         const row = matrix.find((item) => item.system === system && item.state === state && item.operation === operations[r].id);
         const x = left + c * cellW;
         const color = matrixCellColor(row);
+        const stroke = matrixCellStroke(row);
         const label = matrixCellLabel(row);
-        lines.push(`<rect x="${x}" y="${y}" width="${cellW - 4}" height="${cellH - 4}" rx="4" fill="${color}"/>`);
-        lines.push(`<text x="${x + (cellW - 4) / 2}" y="${y + 20}" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#fff">${label}</text>`);
+        lines.push(`<rect x="${x}" y="${y}" width="${cellW - 4}" height="${cellH - 4}" rx="2" fill="${color}" stroke="${stroke}" stroke-width="1"/>`);
+        lines.push(`<text x="${x + (cellW - 4) / 2}" y="${y + 20}" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#20242a">${label}</text>`);
       }
     }
   }
 
-  lines.push(`<rect x="24" y="${height - 28}" width="12" height="12" fill="#c62828"/><text x="42" y="${height - 18}" font-family="Arial, sans-serif" font-size="11" fill="#333">hazard remains executable</text>`);
-  lines.push(`<rect x="216" y="${height - 28}" width="12" height="12" fill="#2e7d32"/><text x="234" y="${height - 18}" font-family="Arial, sans-serif" font-size="11" fill="#333">safe outcome</text>`);
+  lines.push(`<rect x="24" y="${height - 28}" width="12" height="12" fill="#ead9cf" stroke="#8a6258"/><text x="42" y="${height - 18}" font-family="Arial, sans-serif" font-size="11" fill="#333">hazard remains executable</text>`);
+  lines.push(`<rect x="216" y="${height - 28}" width="12" height="12" fill="#e7ece6" stroke="#6f7f69"/><text x="234" y="${height - 18}" font-family="Arial, sans-serif" font-size="11" fill="#333">safe outcome</text>`);
   lines.push(`</svg>`);
   fs.writeFileSync(path.join(FIGURES, "operation_matrix.svg"), `${lines.join("\n")}\n`);
 }
@@ -451,16 +462,17 @@ function writeOverheadSvg(overhead) {
   const maxValue = Math.max(...overhead.map((o) => o.proposalExtraReads + o.proposalExtraWrites));
   const lines = [];
   lines.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`);
-  lines.push(`<rect width="100%" height="100%" fill="#fff"/>`);
-  lines.push(`<text x="24" y="28" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#111">State-Access Overhead Model</text>`);
-  lines.push(`<text x="24" y="48" font-family="Arial, sans-serif" font-size="12" fill="#444">The guard adds one state read to each hazardous operation; writes occur only on bridge state transitions.</text>`);
-  lines.push(`<line x1="${left}" y1="${top + chartH}" x2="${width - 40}" y2="${top + chartH}" stroke="#333"/>`);
-  lines.push(`<line x1="${left}" y1="${top}" x2="${left}" y2="${top + chartH}" stroke="#333"/>`);
+  lines.push(`<defs><pattern id="writeHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#6b625a" stroke-width="1"/></pattern></defs>`);
+  lines.push(`<rect width="100%" height="100%" fill="#fbfaf8"/>`);
+  lines.push(`<text x="24" y="28" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#20242a">State-Access Overhead Model</text>`);
+  lines.push(`<text x="24" y="48" font-family="Arial, sans-serif" font-size="12" fill="#5d6470">Hazardous operations add one state read; bridge transitions perform the writes.</text>`);
+  lines.push(`<line x1="${left}" y1="${top + chartH}" x2="${width - 40}" y2="${top + chartH}" stroke="#2c3138"/>`);
+  lines.push(`<line x1="${left}" y1="${top}" x2="${left}" y2="${top + chartH}" stroke="#2c3138"/>`);
 
   for (let i = 0; i <= maxValue; i += 1) {
     const y = top + chartH - (i / maxValue) * chartH;
-    lines.push(`<line x1="${left - 4}" y1="${y}" x2="${width - 40}" y2="${y}" stroke="#e0e0e0"/>`);
-    lines.push(`<text x="${left - 12}" y="${y + 4}" font-family="Arial, sans-serif" font-size="10" text-anchor="end" fill="#555">${i}</text>`);
+    lines.push(`<line x1="${left - 4}" y1="${y}" x2="${width - 40}" y2="${y}" stroke="#dedbd4"/>`);
+    lines.push(`<text x="${left - 12}" y="${y + 4}" font-family="Arial, sans-serif" font-size="10" text-anchor="end" fill="#5d6470">${i}</text>`);
   }
 
   overhead.forEach((item, i) => {
@@ -470,14 +482,17 @@ function writeOverheadSvg(overhead) {
     const readH = (reads / maxValue) * chartH;
     const writeH = (writes / maxValue) * chartH;
     const baseY = top + chartH;
-    lines.push(`<rect x="${x}" y="${baseY - readH}" width="${barW}" height="${readH}" fill="#1976d2"/>`);
-    lines.push(`<rect x="${x}" y="${baseY - readH - writeH}" width="${barW}" height="${writeH}" fill="#ef6c00"/>`);
+    lines.push(`<rect x="${x}" y="${baseY - readH}" width="${barW}" height="${readH}" fill="#c9ced8" stroke="#677085"/>`);
+    lines.push(`<rect x="${x}" y="${baseY - readH - writeH}" width="${barW}" height="${writeH}" fill="#e6dfd5" stroke="#6b625a"/>`);
+    if (writes > 0) {
+      lines.push(`<rect x="${x}" y="${baseY - readH - writeH}" width="${barW}" height="${writeH}" fill="url(#writeHatch)" opacity="0.45"/>`);
+    }
     lines.push(`<text x="${x + barW / 2}" y="${baseY - readH - writeH - 6}" font-family="Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" fill="#111">${reads + writes}</text>`);
     lines.push(`<text x="${x + barW / 2}" y="${baseY + 18}" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">${escapeXml(item.operation)}</text>`);
   });
 
-  lines.push(`<rect x="606" y="30" width="12" height="12" fill="#1976d2"/><text x="624" y="40" font-family="Arial, sans-serif" font-size="11" fill="#333">extra reads</text>`);
-  lines.push(`<rect x="706" y="30" width="12" height="12" fill="#ef6c00"/><text x="724" y="40" font-family="Arial, sans-serif" font-size="11" fill="#333">extra writes</text>`);
+  lines.push(`<rect x="606" y="30" width="12" height="12" fill="#c9ced8" stroke="#677085"/><text x="624" y="40" font-family="Arial, sans-serif" font-size="11" fill="#333">extra reads</text>`);
+  lines.push(`<rect x="706" y="30" width="12" height="12" fill="#e6dfd5" stroke="#6b625a"/><text x="724" y="40" font-family="Arial, sans-serif" font-size="11" fill="#333">extra writes</text>`);
   lines.push(`</svg>`);
   fs.writeFileSync(path.join(FIGURES, "state_access_overhead.svg"), `${lines.join("\n")}\n`);
 }
@@ -487,24 +502,25 @@ function writeTimelineSvg() {
   const height = 300;
   const lines = [];
   lines.push(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`);
-  lines.push(`<rect width="100%" height="100%" fill="#ffffff"/>`);
-  lines.push(`<text x="24" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#111">Pending Window Attack Surface</text>`);
-  lines.push(`<text x="24" y="52" font-family="Arial, sans-serif" font-size="12" fill="#444">TIE-style timing makes the pending window actionable; the proposal removes the executable operation inside that window.</text>`);
+  lines.push(`<rect width="100%" height="100%" fill="#fbfaf8"/>`);
+  lines.push(`<text x="24" y="30" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#20242a">Pending Window Attack Surface</text>`);
+  lines.push(`<text x="24" y="52" font-family="Arial, sans-serif" font-size="12" fill="#5d6470">The relay delay creates a window in which ownership-dependent operations must be gated.</text>`);
   const xs = [120, 320, 560, 760];
   const labels = ["bridgeOut", "pending window", "hazardous op", "finalizeIn"];
   for (let row = 0; row < 2; row += 1) {
     const y = row === 0 ? 118 : 218;
     const title = row === 0 ? "Baseline" : "Proposal";
-    lines.push(`<text x="24" y="${y + 5}" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111">${title}</text>`);
-    lines.push(`<line x1="${xs[0]}" y1="${y}" x2="${xs[3]}" y2="${y}" stroke="#555" stroke-width="2"/>`);
+    lines.push(`<text x="24" y="${y + 5}" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#20242a">${title}</text>`);
+    lines.push(`<line x1="${xs[0]}" y1="${y}" x2="${xs[3]}" y2="${y}" stroke="#3a4048" stroke-width="2"/>`);
     for (let i = 0; i < xs.length; i += 1) {
-      lines.push(`<circle cx="${xs[i]}" cy="${y}" r="7" fill="#333"/>`);
-      lines.push(`<text x="${xs[i]}" y="${y + 30}" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#333">${labels[i]}</text>`);
+      lines.push(`<circle cx="${xs[i]}" cy="${y}" r="6" fill="#fbfaf8" stroke="#3a4048" stroke-width="2"/>`);
+      lines.push(`<text x="${xs[i]}" y="${y + 30}" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#2c3138">${labels[i]}</text>`);
     }
-    const color = row === 0 ? "#c62828" : "#2e7d32";
+    const fill = row === 0 ? "#ead9cf" : "#e7ece6";
+    const stroke = row === 0 ? "#8a6258" : "#6f7f69";
     const text = row === 0 ? "transfer / approve / listing succeeds" : "operation reverts until finalization";
-    lines.push(`<rect x="${xs[1] + 38}" y="${y - 24}" width="250" height="28" rx="5" fill="${color}"/>`);
-    lines.push(`<text x="${xs[1] + 163}" y="${y - 6}" font-family="Arial, sans-serif" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">${text}</text>`);
+    lines.push(`<rect x="${xs[1] + 38}" y="${y - 24}" width="250" height="28" rx="2" fill="${fill}" stroke="${stroke}"/>`);
+    lines.push(`<text x="${xs[1] + 163}" y="${y - 6}" font-family="Arial, sans-serif" font-size="12" font-weight="700" text-anchor="middle" fill="#20242a">${text}</text>`);
   }
   lines.push(`</svg>`);
   fs.writeFileSync(path.join(FIGURES, "pending_window_timeline.svg"), `${lines.join("\n")}\n`);
