@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Make workspace writable for Dockerized Foundry
+        run: chmod -R a+rwX .
       - name: Run two-chain Anvil delay sweep
         run: sh scripts/run_delay_sweep.sh
       - name: Upload experiment artifacts
