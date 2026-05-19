@@ -1,6 +1,6 @@
-# FIT2026 Cross-Chain NFT Operation Guards
+# Cross-Chain NFT Ownership Guards
 
-[![experiments](https://github.com/black-leg-nameko/fit2026-cross-chain-nft-guards/actions/workflows/experiments.yml/badge.svg)](https://github.com/black-leg-nameko/fit2026-cross-chain-nft-guards/actions/workflows/experiments.yml)
+[![experiments](https://github.com/black-leg-nameko/cross-chain-nft-ownership-guards/actions/workflows/experiments.yml/badge.svg?branch=main)](https://github.com/black-leg-nameko/cross-chain-nft-ownership-guards/actions/workflows/experiments.yml?query=branch%3Amain)
 
 This repository contains the proof-of-concept implementation for the FIT2026
 paper "Implementation and Evaluation of a Hazardous Operation Guard for
