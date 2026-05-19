@@ -4,7 +4,7 @@
 
 This repository contains the proof-of-concept implementation for the FIT2026
 paper "Implementation and Evaluation of a Hazardous Operation Guard for
-Ownership-Pending Cross-chain NFTs".
+Cross-chain NFTs under Ownership Uncertainty".
 
 ## Main Result
 
