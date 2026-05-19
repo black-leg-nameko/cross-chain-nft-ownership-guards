@@ -3,8 +3,8 @@
 [![experiments](https://github.com/black-leg-nameko/fit2026-cross-chain-nft-guards/actions/workflows/experiments.yml/badge.svg)](https://github.com/black-leg-nameko/fit2026-cross-chain-nft-guards/actions/workflows/experiments.yml)
 
 This repository contains the proof-of-concept implementation for the FIT2026
-paper "Defining and Preventing Hazardous Operations under Ownership
-Inconsistency in Cross-chain NFTs".
+paper "Implementation and Evaluation of a Hazardous Operation Guard for
+Ownership-Pending Cross-chain NFTs".
 
 ## Main Result
 
