@@ -2,9 +2,7 @@
 
 [![experiments](https://github.com/black-leg-nameko/cross-chain-nft-ownership-guards/actions/workflows/experiments.yml/badge.svg?branch=main)](https://github.com/black-leg-nameko/cross-chain-nft-ownership-guards/actions/workflows/experiments.yml?query=branch%3Amain)
 
-This repository contains the proof-of-concept implementation for the FIT2026
-paper "Implementation and Evaluation of a Hazardous Operation Guard for
-Cross-chain NFTs under Ownership Uncertainty".
+This repository contains the proof-of-concept implementation of State-Managed Defense for Cross-chain NFTs.
 
 ## Main Result
 
